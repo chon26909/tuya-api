@@ -55,7 +55,7 @@ jobs:
     name: Pull image
     needs: build-and-push
     runs-on:
-      - ubuntu-latest
+      - self-hosted
     environment: DEV
     steps:
       - name: Log in to Docker Hub
@@ -71,19 +71,9 @@ jobs:
     name: Deploy
     runs-on: 
       - self-hosted
-      - Linux
-      - x64
     needs: pull
     environment: DEV
     steps:
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-      - name: Pull image from Docker Hub
-        run: docker pull ${{ secrets.DOCKERHUB_IMAGE }}:latest
       - name: Checkout
         uses: actions/checkout@v4
       - name: Create .env file
