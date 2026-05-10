@@ -27,7 +27,6 @@ func main() {
 		} else {
 			fmt.Println("device status checked")
 		}
-
 		<-ticker.C
 	}
 }
