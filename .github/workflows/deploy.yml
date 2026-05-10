@@ -24,7 +24,7 @@ jobs:
         run: go test ./...
 
   build-and-push:
-    name: Build and push to Docker Hub
+    name: Build and push
     runs-on: ubuntu-latest
     needs: test
     environment: DEV
@@ -52,10 +52,10 @@ jobs:
             ${{ secrets.DOCKERHUB_IMAGE }}:${{ github.sha }}
 
   pull:
+    name: Pull image
     needs: build-and-push
     runs-on:
-      - self-hosted
-      - dev-server
+      - ubuntu-latest
     steps:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
