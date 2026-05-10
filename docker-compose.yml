@@ -1,0 +1,7 @@
+services:
+  tuya-api:
+    image: ${DOCKER_IMAGE}
+    container_name: tuya-api
+    restart: unless-stopped
+    env_file:
+      - .env

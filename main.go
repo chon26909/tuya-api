@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"time"
 
 	"github.com/chon26909/tuya-api/config"
 	"github.com/chon26909/tuya-api/handler"
@@ -16,7 +18,16 @@ func main() {
 	svc := service.NewTuyaService(tuyaRepo, mqttRepo, cfg)
 	h := handler.NewDeviceHandler(svc)
 
-	if err := h.PrintDeviceStatus(); err != nil {
-		log.Fatal(err)
+	ticker := time.NewTicker(30 * time.Second)
+	defer ticker.Stop()
+
+	for {
+		if err := h.PrintDeviceStatus(); err != nil {
+			log.Printf("print device status error: %v", err)
+		} else {
+			fmt.Println("device status checked")
+		}
+
+		<-ticker.C
 	}
 }

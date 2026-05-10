@@ -172,7 +172,7 @@ func (r *TuyaRepository) GetPowerSensorPayload() (*PowerSensorPayload, error) {
 	return &PowerSensorPayload{
 		Voltage:     metrics.Voltage / 100,
 		CurrentMA:   metrics.Current / 1000,
-		PowerMW:     metrics.Power / 100,
+		PowerMW:     (metrics.Voltage / 100) * (metrics.Current / 1000),
 		LoadVoltage: metrics.Voltage / 100,
 		ShuntMV:     0,
 	}, nil
