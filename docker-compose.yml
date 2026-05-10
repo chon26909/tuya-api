@@ -1,6 +1,6 @@
 services:
   tuya-api:
-    image: ${DOCKER_IMAGE}
+    image: chon26909/tuya-api:latest
     container_name: tuya-api
     restart: unless-stopped
     env_file:
